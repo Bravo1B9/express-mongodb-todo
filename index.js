@@ -17,15 +17,20 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.post('/todos', async (req, res) => {
+app.post('/todos/create', async (req, res) => {
   const todo = new Todo(req.body);
   await todo.save();
   res.status(201).json(todo);
 });
 
-app.get('/todos', async (req, res) => {
+app.get('/todos/get-all', async (req, res) => {
   const todos = await Todo.find();
   res.status(200).json({ todos: todos });
+});
+
+app.get('/todos/get-by-id/:id', async (req, res) => {
+  const todo = await Todo.findById(req.params.id);
+  res.status(200).json({ todo: todo });
 });
 
 app.put('/todos/mark-completed/:id', async (req, res) => {
