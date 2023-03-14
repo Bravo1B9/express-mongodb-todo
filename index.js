@@ -28,6 +28,13 @@ app.get('/todos', async (req, res) => {
   res.status(200).json({ todos: todos });
 });
 
+app.put('/todos/mark-completed/:id', async (req, res) => {
+  const todo = await Todo.findById(req.params.id);
+  todo.completed = true;
+  await todo.save();
+  res.status(200).json({ todo: `${req.params.id} completed` });
+});
+
 app.listen(3000, () => {
   console.log('Server started at http://localhost:3000');
 })
