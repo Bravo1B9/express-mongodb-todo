@@ -1,6 +1,6 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb+srv://Brendon:pass123@cluster0.zvg9ytk.mongodb.net/?retryWrites=true&w=majority')
   .then(() => console.log('MongoDB Connected'))
@@ -15,9 +15,15 @@ const Todo = mongoose.model('Todo', todoSchema);
 
 const app = express();
 
-app.use(bodyParser.json);
+app.use(bodyParser.json());
 
-app.get('/todos', (req, res) => {
+app.post('/todos', async (req, res) => {
+  const todo = new Todo(req.body);
+  await todo.save();
+  res.json(todo);
+});
+
+app.get('/todos', async (req, res) => {
   res.json({ todos: 'Todos go here' });
 });
 
