@@ -43,7 +43,7 @@ app.put('/todos/update/:id', async (req, res) => {
 });
 
 app.delete('/todos/:id', async (req, res) => {
-  await Todo.findByIdAndRemove(req.params.id);
+  await Todo.findByIdAndDelete(req.params.id);
   res.status(200).json({ message: `Todo with id: ${req.params.id} deleted` });
 });
 
