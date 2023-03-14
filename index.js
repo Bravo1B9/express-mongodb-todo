@@ -32,14 +32,19 @@ app.put('/todos/mark-completed/:id', async (req, res) => {
   const todo = await Todo.findById(req.params.id);
   todo.completed = true;
   await todo.save();
-  res.status(200).json({ todo: `${req.params.id} completed` });
+  res.status(200).json({ message: `Todo with id: ${req.params.id} completed` });
 });
 
 app.put('/todos/update/:id', async (req, res) => {
   const todo = await Todo.findById(req.params.id);
   todo.title = req.body.newTitle;
   await todo.save();
-  res.status(200).json({ todo: `${req.params.id} updated` });
+  res.status(200).json({ message: `Todo with id: ${req.params.id} updated` });
+});
+
+app.delete('/todos/:id', async (req, res) => {
+  await Todo.findByIdAndRemove(req.params.id);
+  res.status(200).json({ message: `Todo with id: ${req.params.id} deleted` });
 });
 
 app.listen(3000, () => {
