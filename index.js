@@ -20,11 +20,12 @@ app.use(bodyParser.json());
 app.post('/todos', async (req, res) => {
   const todo = new Todo(req.body);
   await todo.save();
-  res.json(todo);
+  res.status(201).json(todo);
 });
 
 app.get('/todos', async (req, res) => {
-  res.json({ todos: 'Todos go here' });
+  const todos = await Todo.find();
+  res.status(200).json({ todos: todos });
 });
 
 app.listen(3000, () => {
