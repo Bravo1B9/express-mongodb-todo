@@ -35,6 +35,13 @@ app.put('/todos/mark-completed/:id', async (req, res) => {
   res.status(200).json({ todo: `${req.params.id} completed` });
 });
 
+app.put('/todos/update/:id', async (req, res) => {
+  const todo = await Todo.findById(req.params.id);
+  todo.title = req.body.newTitle;
+  await todo.save();
+  res.status(200).json({ todo: `${req.params.id} updated` });
+});
+
 app.listen(3000, () => {
   console.log('Server started at http://localhost:3000');
 })
