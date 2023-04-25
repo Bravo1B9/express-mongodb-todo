@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const dbUrl = process.env.MONDGODB_URL;
 
